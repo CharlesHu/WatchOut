@@ -4,6 +4,11 @@
     android:orientation="vertical" >
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="When the angle is more than 45, it plays the ringtone." />
+
+    <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,9 +21,15 @@
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startListening"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Begin" />
+        android:text="Start Listening" />
+
+    <Button
+        android:id="@+id/stopPlaying"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop Playing" />
 
 </LinearLayout>

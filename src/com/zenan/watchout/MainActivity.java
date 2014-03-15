@@ -1,21 +1,24 @@
 package com.zenan.watchout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.AsyncTask;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.zenan.watchout.util.RingtoneUtil;
 
 public class MainActivity extends Activity {
+	private Context context;
+	
 	private SensorManager mSensorManager = null;
 	private Sensor mSensor = null;
 	private float x, y, z;
@@ -24,17 +27,21 @@ public class MainActivity extends Activity {
 	private TextView text;
 	private TextView text1;
 
-	private Button button;
+	private Button startListening;
+	private Button stopPlaying;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		context = getApplicationContext();
 
 		text = (TextView) findViewById(R.id.text);
 		text1 = (TextView) findViewById(R.id.text1);
 
-		button = (Button) findViewById(R.id.button);
+		startListening = (Button) findViewById(R.id.startListening);
+		stopPlaying = (Button) findViewById(R.id.stopPlaying);
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -42,7 +49,7 @@ public class MainActivity extends Activity {
 		mSensorManager.registerListener(listener, mSensor,
 				SensorManager.SENSOR_DELAY_GAME);
 		
-		button.setOnClickListener(new OnClickListener() {
+		startListening.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				x0 = x;
@@ -74,16 +81,25 @@ public class MainActivity extends Activity {
 							System.out.println("x1: " + x1 + " y1: " + y1
 									+ " z1: " + z1);
 							System.out.println("angle: " + angle);
-							if (angle > 90) {
+							if (angle > 45) {
 //								Toast.makeText(getApplicationContext(),
 //										"angle: " + angle, Toast.LENGTH_LONG)
 //										.show();
+								
 								System.out.println("angle: " + angle);
+								RingtoneUtil.playRingtone(context, RingtoneManager.TYPE_RINGTONE);
 								break;
 							}
 						}
 					}
 				}.start();
+			}
+		});
+		
+		stopPlaying.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				RingtoneUtil.stopRingtone();
 			}
 		});
 	}
