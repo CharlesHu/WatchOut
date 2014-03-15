@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +19,7 @@ import com.zenan.watchout.util.RingtoneUtil;
 
 public class MainActivity extends Activity {
 	private Context context;
-	
+
 	private SensorManager mSensorManager = null;
 	private Sensor mSensor = null;
 	private float x, y, z;
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
 	private float x0 = 0, y0 = 0, z0 = 0;
 	private TextView text;
 	private TextView text1;
+	private TextView timerTextView;
 
 	private Button startListening;
 	private Button stopPlaying;
@@ -34,11 +36,12 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		context = getApplicationContext();
 
 		text = (TextView) findViewById(R.id.text);
 		text1 = (TextView) findViewById(R.id.text1);
+		timerTextView = (TextView) findViewById(R.id.timerTextView);
 
 		startListening = (Button) findViewById(R.id.startListening);
 		stopPlaying = (Button) findViewById(R.id.stopPlaying);
@@ -48,18 +51,26 @@ public class MainActivity extends Activity {
 
 		mSensorManager.registerListener(listener, mSensor,
 				SensorManager.SENSOR_DELAY_GAME);
-		
+
 		startListening.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				x0 = x;
-				y0 = y;
-				z0 = z;
-//				Toast.makeText(
-//						getApplicationContext(),
-//						"x0: " + x0 + " y0: " + y0 + " z0: " + z0 + "\nx: " + x
-//								+ " y: " + y + " z: " + z, Toast.LENGTH_LONG)
-//						.show();
+				new CountDownTimer(5000, 1000) {
+					@Override
+					public void onTick(long millisUntilFinished) {
+						timerTextView.setText("Remaining: "
+								+ (millisUntilFinished / 1000) + "s");
+					}
+
+					@Override
+					public void onFinish() {
+						timerTextView.setText("Listening...");
+						x0 = x;
+						y0 = y;
+						z0 = z;
+					}
+				}.start();
+
 				new Thread() {
 					@Override
 					public void run() {
@@ -82,12 +93,13 @@ public class MainActivity extends Activity {
 									+ " z1: " + z1);
 							System.out.println("angle: " + angle);
 							if (angle > 45) {
-//								Toast.makeText(getApplicationContext(),
-//										"angle: " + angle, Toast.LENGTH_LONG)
-//										.show();
-								
+								// Toast.makeText(getApplicationContext(),
+								// "angle: " + angle, Toast.LENGTH_LONG)
+								// .show();
+
 								System.out.println("angle: " + angle);
-								RingtoneUtil.playRingtone(context, RingtoneManager.TYPE_RINGTONE);
+								RingtoneUtil.playRingtone(context,
+										RingtoneManager.TYPE_RINGTONE);
 								break;
 							}
 						}
@@ -95,7 +107,7 @@ public class MainActivity extends Activity {
 				}.start();
 			}
 		});
-		
+
 		stopPlaying.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {

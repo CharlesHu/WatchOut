@@ -9,9 +9,6 @@ import android.net.Uri;
 public class RingtoneUtil {
 	private static MediaPlayer mediaPlayer = null;
 
-	// RingtoneManager.TYPE_NOTIFICATION; 通知声音
-	// RingtoneManager.TYPE_ALARM; 警告
-	// RingtoneManager.TYPE_RINGTONE; 铃声
 	public static Uri getDefaultRingtoneUri(Context context, int type) {
 		return RingtoneManager.getActualDefaultRingtoneUri(context, type);
 	}
@@ -21,6 +18,13 @@ public class RingtoneUtil {
 				RingtoneManager.getActualDefaultRingtoneUri(context, type));
 	}
 
+	/**
+	 * @param
+	 * type
+	 * 	   </br>&nbsp;&nbsp;&nbsp;&nbsp;通知声音 RingtoneManager.TYPE_NOTIFICATION;</br>
+	 * 	   &nbsp;&nbsp;&nbsp;&nbsp;    	警告 RingtoneManager.TYPE_ALARM;</br>
+	 * 	   &nbsp;&nbsp;&nbsp;&nbsp;     铃声 RingtoneManager.TYPE_RINGTONE;</br>
+	 */
 	public static void playRingtone(Context context, int type) {
 		mediaPlayer = MediaPlayer.create(context,
 				getDefaultRingtoneUri(context, type));
