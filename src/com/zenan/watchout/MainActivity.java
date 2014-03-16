@@ -55,6 +55,8 @@ public class MainActivity extends Activity {
 		startListening.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				startListening.setClickable(false);
+				
 				new CountDownTimer(5000, 1000) {
 					@Override
 					public void onTick(long millisUntilFinished) {
@@ -112,6 +114,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				RingtoneUtil.stopRingtone();
+				startListening.setClickable(true);
 			}
 		});
 	}
