@@ -29,8 +29,14 @@ public class MainActivity extends Activity {
 	private TextView text1;
 	private TextView timerTextView;
 
+	private Button addCountDownButton;
+	private Button subtractCountDownButton;
+
 	private Button startListening;
 	private Button stopPlaying;
+
+	private int timeRemaining;
+	private int mAngle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +45,33 @@ public class MainActivity extends Activity {
 
 		context = getApplicationContext();
 
+		timeRemaining = 5;
+		mAngle = 45;
+
 		text = (TextView) findViewById(R.id.text);
 		text1 = (TextView) findViewById(R.id.text1);
 		timerTextView = (TextView) findViewById(R.id.timerTextView);
+
+		addCountDownButton = (Button) findViewById(R.id.addCountDownButton);
+		subtractCountDownButton = (Button) findViewById(R.id.subtractCountDownButton);
+		addCountDownButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (timeRemaining < 999) {
+					timeRemaining++;
+					timerTextView.setText("Remaining: " + timeRemaining + "s");
+				}
+			}
+		});
+		subtractCountDownButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (timeRemaining > 0) {
+					timeRemaining--;
+					timerTextView.setText("Remaining: " + timeRemaining + "s");
+				}
+			}
+		});
 
 		startListening = (Button) findViewById(R.id.startListening);
 		stopPlaying = (Button) findViewById(R.id.stopPlaying);
@@ -56,8 +86,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				startListening.setClickable(false);
-				
-				new CountDownTimer(5000, 1000) {
+				addCountDownButton.setClickable(false);
+				subtractCountDownButton.setClickable(false);
+
+				new CountDownTimer(timeRemaining, 1000) {
 					@Override
 					public void onTick(long millisUntilFinished) {
 						timerTextView.setText("Remaining: "
@@ -115,6 +147,8 @@ public class MainActivity extends Activity {
 			public void onClick(View arg0) {
 				RingtoneUtil.stopRingtone();
 				startListening.setClickable(true);
+				addCountDownButton.setClickable(true);
+				subtractCountDownButton.setClickable(true);
 			}
 		});
 	}
