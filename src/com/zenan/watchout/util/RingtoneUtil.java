@@ -19,11 +19,12 @@ public class RingtoneUtil {
 	}
 
 	/**
-	 * @param
-	 * type
-	 * 	   </br>&nbsp;&nbsp;&nbsp;&nbsp;通知声音 RingtoneManager.TYPE_NOTIFICATION;</br>
-	 * 	   &nbsp;&nbsp;&nbsp;&nbsp;    	警告 RingtoneManager.TYPE_ALARM;</br>
-	 * 	   &nbsp;&nbsp;&nbsp;&nbsp;     铃声 RingtoneManager.TYPE_RINGTONE;</br>
+	 * @param type
+	 *            </br>&nbsp;&nbsp;&nbsp;&nbsp;通知声音
+	 *            RingtoneManager.TYPE_NOTIFICATION;</br>
+	 *            &nbsp;&nbsp;&nbsp;&nbsp; 警告 RingtoneManager.TYPE_ALARM;</br>
+	 *            &nbsp;&nbsp;&nbsp;&nbsp; 铃声
+	 *            RingtoneManager.TYPE_RINGTONE;</br>
 	 */
 	public static void playRingtone(Context context, int type) {
 		mediaPlayer = MediaPlayer.create(context,
@@ -33,8 +34,10 @@ public class RingtoneUtil {
 	}
 
 	public static void stopRingtone() {
-		if (mediaPlayer.isPlaying()) {
-			mediaPlayer.stop();
+		if (mediaPlayer != null) {
+			if (mediaPlayer.isPlaying()) {
+				mediaPlayer.stop();
+			}
 		}
 	}
 }
