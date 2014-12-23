@@ -1,42 +1,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="When the angle is more than 45, it plays the ringtone." />
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/addCountDownButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/subtractCountDownButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="subtract" />
+        <Button
+            android:id="@+id/subtractCountDownButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="subtract" />
 
-    <TextView
-        android:id="@+id/timerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remaining: 5s" />
+        <TextView
+            android:id="@+id/timerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remaining: 5s" />
+
+        <Button
+            android:id="@+id/addCountDownButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/startListening"
