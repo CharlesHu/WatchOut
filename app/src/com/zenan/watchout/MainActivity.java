@@ -5,11 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -25,9 +20,6 @@ import com.zenan.watchout.util.RingtoneUtil;
 public class MainActivity extends Activity {
 	private Context context;
 
-	
-	private TextView text;
-	private TextView text1;
 	private TextView timerTextView;
 
 	private Button addCountDownButton;
@@ -49,8 +41,6 @@ public class MainActivity extends Activity {
 		timeRemaining = 5;
 		mAngle = 45;
 
-		text = (TextView) findViewById(R.id.text);
-		text1 = (TextView) findViewById(R.id.text1);
 		timerTextView = (TextView) findViewById(R.id.timerTextView);
 
 		addCountDownButton = (Button) findViewById(R.id.addCountDownButton);

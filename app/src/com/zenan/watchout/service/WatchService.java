@@ -1,7 +1,5 @@
 package com.zenan.watchout.service;
 
-import com.zenan.watchout.util.RingtoneUtil;
-
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -12,6 +10,8 @@ import android.media.RingtoneManager;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+
+import com.zenan.watchout.util.RingtoneUtil;
 
 public class WatchService extends Service {
 	LocalBinder mLocalBinder;
@@ -29,7 +29,6 @@ public class WatchService extends Service {
 
 	@Override
 	public void onCreate() {
-		System.out.println("onCreate()");
 		mLocalBinder = new LocalBinder();
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -60,7 +59,6 @@ public class WatchService extends Service {
 				x1 = x;
 				y1 = y;
 				z1 = z;
-
 				double ab = x0 * x1 + y0 * y1 + z0 * z1;
 				double tt = (x0 * x0 + y0 * y0 + z0 * z0)
 						* (x1 * x1 + y1 * y1 + z1 * z1);
@@ -100,4 +98,15 @@ public class WatchService extends Service {
 			return WatchService.this;
 		}
 	}
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sendBroadcast(new Intent("YouWillNeverKillMe"));
+    }
 }
